@@ -1,0 +1,8 @@
+c:\users\elz\documents\visual studio 2013\Projects\Parcer\Parcer\bin\Debug\Parcer.exe.config
+c:\users\elz\documents\visual studio 2013\Projects\Parcer\Parcer\obj\Debug\Parcer.csprojResolveAssemblyReference.cache
+c:\users\elz\documents\visual studio 2013\Projects\Parcer\Parcer\bin\Debug\Parcer.exe
+c:\users\elz\documents\visual studio 2013\Projects\Parcer\Parcer\bin\Debug\Parcer.pdb
+c:\users\elz\documents\visual studio 2013\Projects\Parcer\Parcer\obj\Debug\Parcer.exe
+c:\users\elz\documents\visual studio 2013\Projects\Parcer\Parcer\obj\Debug\Parcer.pdb
+C:\Users\ELZ\Documents\Visual Studio 2013\Projects\Parcer\Parcer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ELZ\Documents\Visual Studio 2013\Projects\Parcer\Parcer\bin\Debug\Newtonsoft.Json.xml
