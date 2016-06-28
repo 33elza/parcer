@@ -87,7 +87,10 @@ namespace Parcer
             foreach (string url in lotUrls)
             {
                 Debug.WriteLine(url);
-                GET("http://mmk.ru/for_suppliers/auction/source_dt_l.php?" + url);
+                string lotJson = GET("http://mmk.ru/for_suppliers/auction/source_dt_l.php?" + url);
+                TendersResponce tr = JsonConvert.DeserializeObject<TendersResponce>(lotJson);
+                
+
             }
 
         }
