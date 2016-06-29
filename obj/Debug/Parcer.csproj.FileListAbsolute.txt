@@ -6,3 +6,5 @@ c:\users\elz\documents\visual studio 2013\Projects\Parcer\Parcer\obj\Debug\Parce
 c:\users\elz\documents\visual studio 2013\Projects\Parcer\Parcer\obj\Debug\Parcer.pdb
 C:\Users\ELZ\Documents\Visual Studio 2013\Projects\Parcer\Parcer\bin\Debug\Newtonsoft.Json.dll
 C:\Users\ELZ\Documents\Visual Studio 2013\Projects\Parcer\Parcer\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ELZ\Documents\Visual Studio 2013\Projects\Parcer\Parcer\bin\Debug\CsQuery.dll
+C:\Users\ELZ\Documents\Visual Studio 2013\Projects\Parcer\Parcer\bin\Debug\CsQuery.xml

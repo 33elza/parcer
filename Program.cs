@@ -13,10 +13,11 @@ using Newtonsoft.Json.Linq;
 using Parcer.jsonModels;
 using Newtonsoft.Json.Serialization;
 using System.Data;
+using CsQuery;
 
 namespace Parcer
 {
-    public class Program
+     class Program
     {
        // public List<String> orgs;
        public static void Main(string[] args)
@@ -68,25 +69,51 @@ namespace Parcer
            // JObject jo = JObject.Parse(jsonObj["aaData"].ToString());
           //  string data = "\"aaData\" :" + jsonObj["aaData"].ToString();
            // Debug.WriteLine(data);
-            TendersResponce dataSet = JsonConvert.DeserializeObject<TendersResponce>(resp);
+            TendersResponce tr = JsonConvert.DeserializeObject<TendersResponce>(resp);
 
             List<String> lotUrls = new List<String>();
 
-            for (int i=0; i<dataSet.aaData.Count;i++)
+            for (int i = 0; i < tr.aaData.Count; i++)
             {
-                string href = dataSet.aaData[i][1];
-                string lotUrl = href.Substring(href.IndexOf("?")+1, href.IndexOf(">") - href.IndexOf("?") -1);
+                string href = tr.aaData[i][1];
+                string lotUrl = href.Substring(href.IndexOf("?") + 1, href.IndexOf(">") - href.IndexOf("?") - 1);
                 lotUrls.Add(lotUrl);
-                Debug.WriteLine(lotUrl);          
+                Debug.WriteLine(lotUrl);
             }
+            CreateModel(tr);
             return lotUrls;
+        }
+
+        public static void CreateModel(TendersResponce tr)
+        {
+            for (int i = 0; i < tr.aaData.Count; i++)
+            {
+                Model model = new Model();
+                model.Id = tr.aaData[i][0];
+                model.Note = tr.aaData[i][1].Substring(tr.aaData[i][1].IndexOf(">") + 1, tr.aaData[i][1].LastIndexOf("<") - tr.aaData[i][1].IndexOf(">") - 1);
+                model.SubmissionStartDateTime = DateTime.Parse(tr.aaData[i][2].Substring(0, tr.aaData[i][2].IndexOf("(")));
+                model.SubmissionCloseDateTime = DateTime.Parse(tr.aaData[i][3].Substring(0, tr.aaData[i][3].IndexOf("(")));
+
+                model.ContactPerson = new Contacts();
+                string c = tr.aaData[i][4];
+                model.ContactPerson.FIO = c.Substring(0, c.IndexOf("<"));
+                model.ContactPerson.Position = c.Substring(c.IndexOf(">") + 1, c.Skip(c.IndexOf(">")).ToString().IndexOf(">"));
+                model.ContactPerson.Email = c.Substring(c.IndexOf("mailto:")+7, c.Skip(c.IndexOf("mailto")).ToString().IndexOf(">"));
+               // CQ cq = CQ.Create(tr.aaData[i][4]);
+               // foreach (IDomObject obj in cq.Find("a"))
+               //     Debug.WriteLine(obj.GetAttribute("href"));
+             //   model.ContactPerson.Email = 
+
+                Debug.WriteLine(model.ContactPerson.Email);
+            }
+
         }
 
         public static void ParceTenders(List<String> lotUrls)
         {
             foreach (string url in lotUrls)
             {
-                Debug.WriteLine(url);
+                //Debug.WriteLine(url);
                 string lotJson = GET("http://mmk.ru/for_suppliers/auction/source_dt_l.php?" + url);
                 TendersResponce tr = JsonConvert.DeserializeObject<TendersResponce>(lotJson);
                 
@@ -97,7 +124,7 @@ namespace Parcer
 
         public static string GET(string url)
         {
-            Debug.WriteLine("++++++++++++++");
+           // Debug.WriteLine("++++++++++++++");
             //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://mmk.ru/for_suppliers/auction/index.php");
             //HttpWebResponse responce = (HttpWebResponse)request.GetResponse();
 
@@ -106,7 +133,7 @@ namespace Parcer
             //{
             //    cc.Add(c);
             //}
-            Debug.WriteLine("++++++++++++++11111");
+           // Debug.WriteLine("++++++++++++++11111");
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
            // req.CookieContainer = cc;
             req.ContentType = "application/json";
@@ -114,11 +141,11 @@ namespace Parcer
             req.Accept = "application/json";
             
             HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-            Debug.WriteLine("++++++++++++++222222222");
+           // Debug.WriteLine("++++++++++++++222222222");
             StreamReader reader = new StreamReader(resp.GetResponseStream());
             StringBuilder output = new StringBuilder();
             output.Append(reader.ReadToEnd());
-            Debug.WriteLine(resp.ContentType);
+           // Debug.WriteLine(resp.ContentType);
             resp.Close();
            
             string decodedOutput =  System.Text.RegularExpressions.Regex.Unescape(output.ToString());
