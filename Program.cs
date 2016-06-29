@@ -98,13 +98,22 @@ namespace Parcer
                 string c = tr.aaData[i][4];
                 model.ContactPerson.FIO = c.Substring(0, c.IndexOf("<"));
                 model.ContactPerson.Position = c.Substring(c.IndexOf(">") + 1, c.Skip(c.IndexOf(">")).ToString().IndexOf(">"));
-                model.ContactPerson.Email = c.Substring(c.IndexOf("mailto:")+7, c.Skip(c.IndexOf("mailto")).ToString().IndexOf(">"));
-               // CQ cq = CQ.Create(tr.aaData[i][4]);
-               // foreach (IDomObject obj in cq.Find("a"))
-               //     Debug.WriteLine(obj.GetAttribute("href"));
-             //   model.ContactPerson.Email = 
+                model.ContactPerson.Email = c.Substring(c.IndexOf("mailto:")+7, c.Substring(c.IndexOf("mailto")).IndexOf(">")-7);
 
-                Debug.WriteLine(model.ContactPerson.Email);
+                model.Lots = new List<Lot>();
+                
+                    string href = tr.aaData[i][1];
+                    string lotUrl = href.Substring(href.IndexOf("?") + 1, href.IndexOf(">") - href.IndexOf("?") - 1);
+                    string lotJson = GET("http://mmk.ru/for_suppliers/auction/source_dt_l.php?" + lotUrl);
+                    TendersResponce lotResp = JsonConvert.DeserializeObject<TendersResponce>(lotJson);
+                    for (int j = 0; j < lotResp.aaData.Count;j++ )
+                    {
+                        Lot lot = new Lot();
+                        lot.Name = lotResp.aaData[j][1];
+                        lot.Measure = lotResp.aaData[j][3];
+                        lot.Quantity = Convert.ToDouble(lotResp.aaData[j][4]);
+                        model.Lots.Add(lot);
+                    }
             }
 
         }
