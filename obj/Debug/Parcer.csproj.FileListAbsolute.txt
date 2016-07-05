@@ -8,3 +8,5 @@ C:\Users\ELZ\Documents\Visual Studio 2013\Projects\Parcer\Parcer\bin\Debug\Newto
 C:\Users\ELZ\Documents\Visual Studio 2013\Projects\Parcer\Parcer\bin\Debug\Newtonsoft.Json.xml
 C:\Users\ELZ\Documents\Visual Studio 2013\Projects\Parcer\Parcer\bin\Debug\CsQuery.dll
 C:\Users\ELZ\Documents\Visual Studio 2013\Projects\Parcer\Parcer\bin\Debug\CsQuery.xml
+C:\Users\ELZ\Documents\Visual Studio 2013\Projects\Parcer\Parcer\bin\Debug\RabbitMQ.Client.dll
+C:\Users\ELZ\Documents\Visual Studio 2013\Projects\Parcer\Parcer\bin\Debug\RabbitMQ.Client.xml

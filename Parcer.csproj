@@ -43,6 +43,7 @@
       <HintPath>..\packages\RabbitMQ.Client.3.6.2\lib\net45\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,11 +52,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataParcer.cs" />
     <Compile Include="jsonModels\Attachment.cs" />
     <Compile Include="jsonModels\Contacts.cs" />
     <Compile Include="jsonModels\Lot.cs" />
     <Compile Include="jsonModels\Model.cs" />
+    <Compile Include="jsonModels\NotificationModel.cs" />
+    <Compile Include="jsonModels\OrganisationId.cs" />
+    <Compile Include="jsonModels\OrgResponce.cs" />
     <Compile Include="jsonModels\TendersResponce.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
