@@ -11,6 +11,7 @@ using System.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RabbitMQ.Client;
+using System.Text.RegularExpressions;
 
 namespace Parcer
 {
@@ -20,7 +21,7 @@ namespace Parcer
         {
             int c = 0;
             string line;
-            StreamReader file = new StreamReader(Directory.GetCurrentDirectory() + @"\orgs.txt", Encoding.Default);
+            StreamReader file = new StreamReader(Directory.GetCurrentDirectory() + @"\orgs.txt", Encoding.UTF8);
             while ((line = file.ReadLine()) != null)
             {
                 organizations.Add(line);
@@ -31,7 +32,7 @@ namespace Parcer
         }
         public List<OrgResponce> ReadCsvFile()
         {
-            string[] orgs = File.ReadAllLines(Directory.GetCurrentDirectory() + @"\organisations.csv", Encoding.Default);
+            string[] orgs = File.ReadAllLines(Directory.GetCurrentDirectory() + @"\organisations.csv", Encoding.UTF8);
             string[] orgValues = null;
             List<OrgResponce> orgList = new List<OrgResponce>();
             for (int i=0; i<orgs.Length; i++)
@@ -79,11 +80,11 @@ namespace Parcer
                // wp.Credentials = new NetworkCredential();
                 webreq.Proxy = wp;
                 WebResponse webresp = webreq.GetResponse();
-                StreamReader sreader = new StreamReader(webresp.GetResponseStream());
+                StreamReader sreader = new StreamReader(webresp.GetResponseStream(), Encoding.UTF8);
                 StringBuilder sb = new StringBuilder();
                 sb.Append(sreader.ReadToEnd());
                 webresp.Close();
-                string decSb = System.Text.RegularExpressions.Regex.Unescape(sb.ToString());
+                string decSb = Regex.Unescape(sb.ToString());
                 sreader.Close();
                 return decSb.ToString();
             }
@@ -96,12 +97,12 @@ namespace Parcer
                 req.Accept = "application/json";
 
                 HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-                StreamReader reader = new StreamReader(resp.GetResponseStream());
+                StreamReader reader = new StreamReader(resp.GetResponseStream(), Encoding.UTF8);
                 StringBuilder output = new StringBuilder();
                 output.Append(reader.ReadToEnd());
                 resp.Close();
 
-                string decodedOutput = System.Text.RegularExpressions.Regex.Unescape(output.ToString());
+                string decodedOutput = Regex.Unescape(output.ToString());
                 Debug.WriteLine(decodedOutput);
                 reader.Close();
                 return decodedOutput.ToString();
