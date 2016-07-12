@@ -167,8 +167,8 @@ namespace Parcer
                 Console.WriteLine(" [x] Sent {0}", message);
             }
 
-            Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
+           // Console.WriteLine(" Press [enter] to exit.");
+          //  Console.ReadLine();
         }
 
 
